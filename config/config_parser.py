@@ -1,10 +1,11 @@
-import configparser
 import os
+
+import configparser
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class ConfigParser:
     def __init__(self, path):
-        self.config_path = os.path.expanduser('{}{}'.format(os.getcwd(), path))
         self.config = configparser.ConfigParser()
-        self.config.sections()
-        self.config.read(path)
+        self.config.read(f'{ROOT_DIR}{path}')

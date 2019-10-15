@@ -14,3 +14,8 @@ An automation tests framework for writing integrations tests for Electron app. B
 8. Set VERSION of chromedriver (currently working with 2.37)
 
 To run tests set script path in created configuration (e.g. ##your_local_path##\selepy\tests\ui) and set 
+
+## Run from Docker
+1. Go to selepy folder
+2. Build Docker `docker build -t selepy .`
+3. Run tests `docker run -i --rm --user $(id -u):$(id -g) -v $(pwd):/app selepy /app/web_tests_trigger.sh/`

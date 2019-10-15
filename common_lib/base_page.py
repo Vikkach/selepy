@@ -1,4 +1,6 @@
+import os
 from common_lib.base_logger import BaseLogger
+from common_lib.config_wrapper import Config
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
@@ -10,7 +12,9 @@ from common_lib.general_data import TIMEOUT_SEC, SHORT_TIMEOUT_SEC
 class BasePage:
 
     def __init__(self, driver):
+        config = Config()
         self.driver = driver
+        self.root_url = config.get_main_url_from_config()
 
     def wait_until_element_is_visible(self, locator, timeout=TIMEOUT_SEC):
         try:
@@ -92,3 +96,10 @@ class BasePage:
 
         except TimeoutException:
             pass
+
+    def open_page(self, url=""):
+        try:
+            main_url = f'{self.root_url}{url}'
+            self.driver.get(f'{self.root_url}{url}')
+        except TimeoutException:
+            self.driver.refresh()
